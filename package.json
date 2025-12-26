@@ -1,0 +1,63 @@
+{
+  "name": "@coa/backend",
+  "version": "0.1.0-alpha",
+  "description": "Back-end for Coagrisan services",
+  "homepage": "https://github.com/JulianPaniagua/coa-backend#readme",
+  "bugs": {
+    "url": "https://github.com/JulianPaniagua/coa-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JulianPaniagua/coa-backend.git"
+  },
+  "author": "Julian Paniagua",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production tsc --build",
+    "start": "cross-env NODE_ENV=production node --import ./dist/loader.js dist/server.js",
+    "dev": "cross-env NODE_ENV=development tsx watch --import ./src/loader.ts src/server.ts",
+    "dev:db": "docker compose -f compose.dev.yaml up -d",
+    "dev:stop": "docker compose -f compose.dev.yaml down",
+    "dev:full": "run-s dev:db dev",
+    "test": "run-s test:unit test:api",
+    "type-check": "tsc --build --noEmit",
+    "migrate": "node scripts/run-migrations.cjs",
+    "migrate:dev": "run-s dev:db migrate"
+  },
+  "dependencies": {
+    "axios": "^1.12.2",
+    "connect-redis": "^8.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dayjs": "^1.11.18",
+    "debug": "^4.4.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.14.0",
+    "node-cron": "^4.2.1",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "@coa/api-types": "file:./api-types",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/debug": "^4.1.12",
+    "@types/express": "^5.0.1",
+    "@types/express-session": "^1.18.1",
+    "@types/http-errors": "^2.0.4",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.13.13",
+    "npm-run-all2": "^7.0.2",
+    "start-server-and-test": "^2.0.11",
+    "tsx": "^4.19.2",
+    "typescript": "^5.8.2"
+  }
+}

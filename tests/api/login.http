@@ -1,0 +1,15 @@
+### User valid
+# @no-cookie-jar
+POST {{host}}/user/login
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+
+username=Coagrisan&password=.
+
+### User invalid
+# @no-cookie-jar
+POST {{host}}/user/login
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+
+username=NonExistent&password=passwd

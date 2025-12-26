@@ -1,0 +1,40 @@
+*   text=auto eol=lf
+
+# Terminal scripts required specific line endings
+*.bash  text eol=lf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Tell GitHub Linguist to treat ALL .ts files as TypeScript
+*.ts    text linguist-language=TypeScript
+*.mts   text linguist-language=TypeScript
+*.cts   text linguist-language=TypeScript
+
+# Configuration files
+*.lock            text -diff
+package.json      text eol=lf
+package-lock.json text eol=lf -diff
+
+# Graphics
+*.ai    binary
+*.bmp   binary
+*.eps   binary
+*.gif   binary
+*.gifv  binary
+*.ico   binary
+*.jng   binary
+*.jp2   binary
+*.jpg   binary
+*.jpeg  binary
+*.jpx   binary
+*.jxr   binary
+*.pdf   binary
+*.png   binary
+*.psb   binary
+*.psd   binary
+*.svg   text
+*.svgz  binary
+*.tif   binary
+*.tiff  binary
+*.wbmp  binary
+*.webp  binary

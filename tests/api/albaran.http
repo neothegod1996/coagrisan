@@ -1,0 +1,128 @@
+### Create "albaran" object
+POST {{host}}/albaranes
+Accept: application/json
+Content-Type: application/json
+
+{
+    "general": {
+        "socioId": 3,
+        "fincaId": 6,
+        "anio": 2025,
+        "sectoresActivados": [
+            2,
+            5,
+            6,
+            8
+        ],
+        "tecnicoId": 2,
+        "fechaInstrucciones": "2025-01-25",
+        "fechaEjecucion": "2025-02-22",
+        "plazoEjecucionDias": 1,
+        "pendiente": true
+    },
+    "productos": [
+        {
+            "maquinaria": "espolvoreador",
+            "nivel": "alta",
+            "gastosL": 8,
+            "productoId": 4
+        }
+    ],
+    "abono": {
+        "tanqueA": [
+            {
+                "abonoId": 11,
+                "kilos": 25.0
+            },
+            {
+                "abonoId": 39,
+                "kilos": 62.0
+            },
+            {
+                "abonoId": 87,
+                "kilos": 2.5
+            }
+        ],
+        "tanqueB": [
+            {
+                "abonoId": 11,
+                "kilos": 25.0
+            },
+            {
+                "abonoId": 12,
+                "kilos": 8.0
+            },
+            {
+                "abonoId": 95,
+                "kilos": 25.0
+            },
+            {
+                "abonoId": 102,
+                "kilos": 4.0
+            }
+        ]
+    },
+    "riego": {
+        "ce": 0.8,
+        "lm2": 0.0,
+        "tiempoRiegoMin": 40,
+        "equilibrio": "1-0.5-1.5",
+        "duracionPlanAbono": "indefinido",
+        "tanqueDiasSemana": [
+            "lunes",
+            "martes",
+            "miercoles",
+            "jueves",
+            "viernes",
+            "sabado",
+            "domingo"
+        ]
+    },
+    "laboresCulturales": [],
+    "observaciones": "Este es un albarán de prueba. No está basado en datos reales.",
+    "firma": "API"
+}
+
+### Retrieve "albaran" object
+GET {{host}}/albaran/202500060003001
+Accept: application/json
+
+### Update "albaran" object
+PATCH {{host}}/albaran/202500060003001
+Content-Type: application/json
+
+{
+    "general": {
+        "sectoresActivados": [
+            2,
+            4,
+            7
+        ],
+        "tecnicoId": 1,
+        "fechaInstrucciones": "2025-02-25",
+        "fechaEjecucion": "2025-03-22",
+        "plazoEjecucionDias": 7,
+        "pendiente": false
+    },
+    "riego": {
+        "ce": 1.5,
+        "lm2": 2.0,
+        "tiempoRiegoMin": 20,
+        "equilibrio": "1-0.25",
+        "duracionPlanAbono": "15dias",
+        "tanqueDiasSemana": [
+            "martes",
+            "jueves",
+            "viernes"
+        ]
+    },
+    "laboresCulturales": [
+        "deshijar",
+        "deshojar"
+    ],
+    "observaciones": "Esta prueba ha sido actualizada",
+    "firma": "API"
+}
+
+### Delete "albaran" object
+DELETE {{host}}/albaran/202500060003001

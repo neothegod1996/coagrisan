@@ -1,0 +1,5 @@
+### GET request to example server
+GET {{host}}/socios?limit=1&offset=1
+Accept: application/json
+
+###

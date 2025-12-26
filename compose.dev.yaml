@@ -1,0 +1,15 @@
+name: coagrisan-backend-dev
+
+services:
+  mysql:
+    expose:
+      - "3306"
+      - "33060"
+    ports:
+      - "3306:3306"
+      - "33060:33060"
+  redis:
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"

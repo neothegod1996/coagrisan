@@ -1,0 +1,80 @@
+name: coagrisan-backend
+
+services:
+  server:
+    image: ghcr.io/coagrisan/server
+    hostname: server.coagrisan-docker.local
+    pull_policy: build
+    build: .
+    networks:
+      - public
+      - private
+    secrets:
+      - mysql-local-user
+      - mysql-local-pass
+      - redis-password
+    depends_on:
+      - mysql
+      - redis
+  mysql:
+    image: mysql:8.4.4
+    hostname: mysql.coagrisan-docker.local
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_spanish2_ci
+    restart: always
+    environment:
+      MYSQL_DATABASE: coagrisan
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql-root-pass
+      MYSQL_USER_FILE: /run/secrets/mysql-local-user
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql-local-pass
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$(cat /run/secrets/mysql-root-pass) --silent" ]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    secrets:
+      - mysql-root-pass
+      - mysql-local-user
+      - mysql-local-pass
+    networks:
+      - private
+    volumes:
+      - mysql-data:/var/lib/mysql
+  redis:
+    image: redis:7.4.2-alpine
+    hostname: redis.coagrisan-docker.local
+    command:
+      - sh
+      - "-c"
+      - "redis-server --save 60 1 --loglevel warning --requirepass $(cat /run/secrets/redis-password)"
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli", "-a", "$$(cat /run/secrets/redis-password)", "--raw", "incr", "ping" ]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - private
+    volumes:
+      - redis-data:/data
+    secrets:
+      - redis-password
+networks:
+  public:
+    driver: bridge
+  private:
+    driver: bridge
+volumes:
+  mysql-data:
+  redis-data:
+secrets:
+  mysql-root-pass:
+    file: secrets/mysql/root.pass.txt
+  mysql-local-user:
+    file: secrets/mysql/local.user.txt
+  mysql-local-pass:
+    file: secrets/mysql/local.pass.txt
+  redis-password:
+    file: secrets/redis.passwd.txt
+  session-key:
+    file: secrets/session_key.txt

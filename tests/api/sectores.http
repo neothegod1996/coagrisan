@@ -1,0 +1,31 @@
+### Login para obtener sesión
+POST {{host}}/api/user/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+### Recuperar sectores de una finca
+GET {{host}}/api/sectores/12
+
+### Actualización masiva de sinInventario en sectores
+PATCH {{host}}/api/sectores/12/bulk
+Content-Type: application/json
+
+{
+  "updates": [
+    { "id": 1, "sinInventario": true },
+    { "id": 2, "sinInventario": false },
+    { "id": 7, "sinInventario": true }
+  ]
+}
+
+### Actualización individual de un sector
+PATCH {{host}}/api/sectores/12/1
+Content-Type: application/json
+
+{
+  "sinInventario": false
+}
